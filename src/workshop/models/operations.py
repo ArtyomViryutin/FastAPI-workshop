@@ -1,17 +1,33 @@
 from enum import Enum
+from typing import Optional
+
 
 from pydantic import BaseModel
 from datetime import date
 
 
-class OperationKind(Enum):
-    income = "income"
-    outcome = "outcome"
+class OperationKind(str, Enum):
+    INCOME = 'income'
+    OUTCOME = 'outcome'
 
 
-class Operation(BaseModel):
-    id: int
+class OperationBase(BaseModel):
     date: date
     kind: OperationKind
     amount: int
-    description: str | None
+    description: Optional[str]
+
+
+class Operation(OperationBase):
+    id: int
+
+    class Config:
+        orm_mode = True
+
+
+class OperationCreate(OperationBase):
+    pass
+
+
+class OperationUpdate(OperationBase):
+    pass
