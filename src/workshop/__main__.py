@@ -1,8 +1,10 @@
-import unicorn
+import uvicorn
+from workshop.settings import settings
 
 
-unicorn.run(
-    'workshop.app:app',
-    reload=True,
-
+uvicorn.run(
+    app='workshop.app:app',
+    host=settings.server_host,
+    port=settings.server_port,
+    reload=True
 )

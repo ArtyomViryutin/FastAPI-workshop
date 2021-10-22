@@ -1,8 +1,6 @@
 from fastapi import FastAPI
+from workshop.api.operations import router
+
 
 app = FastAPI()
-
-
-@app.get('/')
-def root():
-    return {'message': 'Hello, World!'}
+app.include_router(router)
